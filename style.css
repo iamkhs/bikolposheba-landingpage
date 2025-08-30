@@ -348,8 +348,15 @@ body {
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0px) rotate(-5deg); }
-    50% { transform: translateY(-20px) rotate(-5deg); }
+
+    0%,
+    100% {
+        transform: translateY(0px) rotate(-5deg);
+    }
+
+    50% {
+        transform: translateY(-20px) rotate(-5deg);
+    }
 }
 
 /* Trust Section */
@@ -578,7 +585,8 @@ body {
 
 .pricing-features {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
+    /* Four equal columns for four features */
     gap: 1rem;
     margin-top: 2rem;
 }
@@ -773,6 +781,25 @@ body {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
+
+    .pricing-features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    .pricing-feature {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.95rem;
+    }
+
+    .pricing-feature i {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
 }
 
 /* Animations */
