@@ -509,6 +509,28 @@ footer {
 
     .why-grid {
         grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .why-content {
+        order: 1;
+    }
+
+    .why-visual {
+        order: 2;
+        margin-top: 2rem;
+    }
+
+    .why-points {
+        text-align: left;
+        max-width: 400px;
+        margin: 2rem auto 0;
+    }
+
+    .why-points li {
+        justify-content: flex-start;
+        margin-bottom: 1.5rem;
     }
 
     .hero-buttons,
