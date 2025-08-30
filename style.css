@@ -486,6 +486,64 @@ footer {
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
+
+
+     .why-choose {
+        padding: 4rem 0; /* Reduced padding for mobile */
+    }
+
+    .why-grid {
+        grid-template-columns: 1fr; /* Single column layout for mobile */
+        gap: 2rem; /* Reduced gap */
+        text-align: center; /* Center align for better mobile appearance */
+    }
+
+    .why-content h2 {
+        font-size: 2rem; /* Smaller heading for mobile */
+        margin-bottom: 1rem;
+    }
+
+    .why-content p {
+        font-size: 1rem; /* Adjusted paragraph size */
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+    }
+
+    .why-points {
+        margin-top: 1.5rem;
+        text-align: left; /* Keep points left-aligned for readability */
+        max-width: 100%;
+    }
+
+    .why-points li {
+        font-size: 1rem; /* Adjusted font size */
+        margin-bottom: 1rem;
+        padding: 0 1rem; /* Add some padding for better spacing */
+    }
+
+    .why-points li i {
+        margin-right: 0.75rem; /* Adjusted icon spacing */
+        font-size: 1.1rem;
+        flex-shrink: 0; /* Prevent icon from shrinking */
+    }
+
+    .why-visual {
+        margin-top: 1rem;
+    }
+
+    .why-visual i {
+        font-size: 4rem !important; /* Smaller icon for mobile */
+    }
+
+    .why-visual h3 {
+        font-size: 1.5rem; /* Smaller heading */
+    }
+
+    .why-visual p {
+        font-size: 0.95rem; /* Smaller text */
+        line-height: 1.4;
+    }
+    
     .nav-links {
         display: none;
     }
