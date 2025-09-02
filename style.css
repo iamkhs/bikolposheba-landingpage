@@ -1191,6 +1191,116 @@ body {
     transform: translateY(0);
 }
 
+
+/* Services Overview Section */
+.services-overview {
+    padding: 6rem 2rem;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    position: relative;
+}
+
+.services-overview::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="service-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="rgba(22,163,74,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23service-pattern)"/></svg>');
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.service-highlight {
+    background: white;
+    padding: 2.5rem;
+    border-radius: var(--radius-xl);
+    text-align: center;
+    border: 1px solid var(--border-color);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-highlight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(22, 163, 74, 0.1), transparent);
+    transition: left 0.6s ease;
+}
+
+.service-highlight:hover::before {
+    left: 100%;
+}
+
+.service-highlight:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(22, 163, 74, 0.15);
+    border-color: var(--primary-green);
+}
+
+.service-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.8rem;
+    margin: 0 auto 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.service-highlight:hover .service-icon {
+    transform: scale(1.1) rotate(10deg);
+}
+
+.service-highlight h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.service-highlight p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+/* Mobile responsive for services */
+@media (max-width: 768px) {
+    .services-overview {
+        padding: 4rem 1rem;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .service-highlight {
+        padding: 2rem;
+    }
+    
+    .service-highlight h3 {
+        font-size: 1.1rem;
+    }
+}
+
 /* Mobile Optimizations */
 @media (max-width: 768px) {
     .nav-links {
