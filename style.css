@@ -54,15 +54,6 @@ body {
     padding: 1rem 2rem;
 }
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary-green);
-    text-decoration: none;
-}
 
 .logo-icon {
     width: 40px;
@@ -734,6 +725,67 @@ body {
 }
 
 
+/* NEW CLASS: Optimized Footer Logo */
+.footer-logo {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    line-height: 0;
+    transition: transform 0.3s ease;
+}
+
+.footer-logo:hover {
+    transform: scale(1.02);
+}
+
+.footer-logo svg {
+    width: 220px;
+    height: auto;
+    max-width: 100%;
+    display: block;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
+}
+
+.footer-brand p {
+    color: #94a3b8;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+}
+
+.footer-section h4 {
+    color: var(--light-green);
+    margin-bottom: 1rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.footer-section a {
+    color: #94a3b8;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    transition: color 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.footer-section a i {
+    margin-right: 0.5rem;
+    width: 16px;
+    color: var(--accent-yellow);
+}
+
+.footer-section a:hover {
+    color: var(--light-green);
+}
+
+.footer-bottom {
+    border-top: 1px solid #334155;
+    padding-top: 2rem;
+    text-align: center;
+    color: #64748b;
+}
+
 
 /* CSS for Testimonials, Security & Live Activity Sections */
 
@@ -1075,9 +1127,20 @@ body {
 }
 
 @keyframes pulse-dot {
-    0% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.2); }
-    100% { opacity: 1; transform: scale(1); }
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(1.2);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .activity-number {
@@ -1286,16 +1349,16 @@ body {
     .services-overview {
         padding: 4rem 1rem;
     }
-    
+
     .services-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
     }
-    
+
     .service-highlight {
         padding: 2rem;
     }
-    
+
     .service-highlight h3 {
         font-size: 1.1rem;
     }
@@ -1373,7 +1436,7 @@ body {
         font-size: 1.8rem;
     }
 
-    .cta-content h2{
+    .cta-content h2 {
         font-size: 1.8rem;
     }
 
@@ -1478,6 +1541,7 @@ body {
 }
 
 @media (max-width: 480px) {
+
     .testimonials-section,
     .security-section,
     .live-activity-section {
