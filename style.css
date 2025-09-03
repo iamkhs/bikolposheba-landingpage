@@ -1370,6 +1370,10 @@ body {
         padding: 1rem  1.2rem 1rem 0rem;
     }
 
+    .header{
+        height: 85px;
+    }
+
     .nav-links {
         display: none;
     }
