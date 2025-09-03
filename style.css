@@ -51,7 +51,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 1rem 0rem;
 }
 
 
@@ -1366,6 +1366,10 @@ body {
 
 /* Mobile Optimizations */
 @media (max-width: 768px) {
+    .nav {
+        padding: 1rem  1.2rem 1rem 0rem;
+    }
+
     .nav-links {
         display: none;
     }
