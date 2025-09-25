@@ -724,6 +724,10 @@ body {
             .pricing-section {
                 padding: 4rem 1rem;
             }
+
+            .result-section{
+                padding: 1rem;
+            }
         }
 
         /* Animation */
