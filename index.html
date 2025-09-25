@@ -670,10 +670,10 @@
         </div>
     </section>
 
-    <!-- Pricing Section -->
+ <!-- Pricing Section -->
     <section class="pricing-section">
         <div class="pricing-container">
-            <div class="animate-on-scroll">
+            <div class="animate-slide-up">
                 <h2 class="section-title bengali" style="color: white">
                     <i class="fas fa-tags" style="color: white; margin-right: 0.5rem"></i>
                     স্বচ্ছ মূল্য নির্ধারণ
@@ -682,28 +682,85 @@
                     কোনো লুকানো চার্জ নেই। যা দেখবেন তাই পাবেন।
                 </p>
 
-                <div class="pricing-card">
-                    <div class="pricing-highlight bengali">১৳ চার্জ</div>
-                    <div class="pricing-subtext bengali">প্রতি ১০০০ টাকায়</div>
+                <div class="pricing-grid">
+                    <!-- Original Pricing Card -->
+                    <div class="pricing-card">
+                        <div class="pricing-highlight bengali">১৳ চার্জ</div>
+                        <div class="pricing-subtext bengali">প্রতি ১০০০ টাকায়</div>
 
-                    <div class="pricing-features bengali">
-                        <div class="pricing-feature">
-                            <i class="fas fa-check"></i>
-                            দ্রুত পাঠানো
-                        </div>
-                        <div class="pricing-feature">
-                            <i class="fas fa-check"></i>
-                            ২৪/৭ সেবা
-                        </div>
-                        <div class="pricing-feature">
-                            <i class="fas fa-check"></i>
-                            রসিদ ও ট্র্যাকিং
-                        </div>
-                        <div class="pricing-feature">
-                            <i class="fas fa-check"></i>
-                            গ্রাহক সহায়তা
+                        <div class="pricing-features bengali">
+                            <div class="pricing-feature">
+                                <i class="fas fa-check"></i>
+                                দ্রুত পাঠানো
+                            </div>
+                            <div class="pricing-feature">
+                                <i class="fas fa-check"></i>
+                                ২৪/৭ সেবা
+                            </div>
+                            <div class="pricing-feature">
+                                <i class="fas fa-check"></i>
+                                রসিদ ও ট্র্যাকিং
+                            </div>
+                            <div class="pricing-feature">
+                                <i class="fas fa-check"></i>
+                                গ্রাহক সহায়তা
+                            </div>
                         </div>
                     </div>
+
+<!-- Calculator Card with Enhanced Icons -->
+<div class="pricing-card calculator-card">
+    <h3 class="calculator-title bengali">
+        <i class="fas fa-calculator" style="margin-right: 0.5rem; color: var(--primary-green);"></i>
+        চার্জ ক্যালকুলেটর
+    </h3>
+
+    <div class="input-group">
+        <label for="sendAmount" class="input-label bengali">
+            <i class="fas fa-money-bill-wave" style="margin-right: 0.5rem; color: var(--primary-green);"></i>
+            যে পরিমাণ টাকা পাঠাতে চান
+        </label>
+        <div class="currency-symbol">
+            <input 
+                type="number" 
+                id="sendAmount" 
+                class="input-field" 
+                placeholder="পরিমাণ লিখুন"
+                min="0"
+                step="0.01"
+            >
+        </div>
+    </div>
+
+    <div class="result-section" id="resultSection" style="display: none;">
+        <div class="result-row">
+            <span class="result-label bengali">
+                <i class="fas fa-paper-plane" style="color: var(--primary-green); margin-right: 0.5rem;"></i>
+                পাঠানোর পরিমাণ:
+            </span>
+            <span class="result-value" id="sendAmountDisplay">৳০</span>
+        </div>
+        <div class="result-row">
+            <span class="result-label bengali">
+                <i class="fas fa-receipt" style="color: #f59e0b; margin-right: 0.5rem;"></i>
+                সেবা চার্জ:
+            </span>
+            <span class="result-value" id="serviceCharge">৳০</span>
+        </div>
+        <div class="result-row">
+            <span class="result-label bengali">
+                <i class="fas fa-calculator" style="color: var(--primary-green); margin-right: 0.5rem;"></i>
+                মোট খরচ:
+            </span>
+            <span class="result-value total-value" id="totalCost">৳০</span>
+        </div>
+    </div>
+
+    <div class="calculation-note bengali">
+        <i class="fas fa-info-circle" style="margin-right: 0.5rem; color: var(--primary-green);"></i>
+        প্রতি ১০০০ টাকার জন্য ১ টাকা চার্জ প্রযোজ্য
+    </div>
+</div>
                 </div>
             </div>
         </div>

@@ -317,3 +317,97 @@ const trackClicks = () => {
 };
 
 trackClicks();
+
+
+// Fixed Calculator Functions - Replace the calculator section in your script.js
+
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Get calculator elements
+    const sendAmountInput = document.getElementById('sendAmount');
+    const resultSection = document.getElementById('resultSection');
+    const sendAmountDisplay = document.getElementById('sendAmountDisplay');
+    const serviceChargeDisplay = document.getElementById('serviceCharge');
+    const totalCostDisplay = document.getElementById('totalCost');
+
+    // Check if elements exist before proceeding
+    if (!sendAmountInput || !resultSection || !sendAmountDisplay || !serviceChargeDisplay || !totalCostDisplay) {
+        console.log('Calculator elements not found - calculator section may not be loaded yet');
+        return;
+    }
+
+    // Calculate charge based on 1 taka per 1000 taka
+    function calculateCharge(amount) {
+        if (amount <= 0) return 0;
+        return Math.ceil(amount / 1000); // 1 taka for every 1000 taka (rounded up)
+    }
+
+    // Convert numbers to Bengali digits
+    function convertToBengaliNumbers(str) {
+        const bengaliDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+        return str.replace(/\d/g, (digit) => bengaliDigits[parseInt(digit)]);
+    }
+
+    // Format number to Bengali locale with proper formatting
+    function formatToBengali(number) {
+        // First format the number with commas
+        const formattedNumber = number.toLocaleString('en-US');
+        // Then convert to Bengali digits
+        const bengaliNumber = convertToBengaliNumbers(formattedNumber);
+        return `৳${bengaliNumber}`;
+    }
+
+    // Update calculation
+    function updateCalculation() {
+        const amount = parseFloat(sendAmountInput.value) || 0;
+        
+        if (amount > 0) {
+            const charge = calculateCharge(amount);
+            const total = amount + charge;
+
+            sendAmountDisplay.textContent = formatToBengali(amount);
+            serviceChargeDisplay.textContent = formatToBengali(charge);
+            totalCostDisplay.textContent = formatToBengali(total);
+
+            resultSection.style.display = 'block';
+            // Remove existing animation class and add it back to trigger animation
+            resultSection.classList.remove('animate-slide-up');
+            setTimeout(() => {
+                resultSection.classList.add('animate-slide-up');
+            }, 10);
+        } else {
+            resultSection.style.display = 'none';
+            resultSection.classList.remove('animate-slide-up');
+        }
+    }
+
+    // Event listeners for real-time calculation
+    sendAmountInput.addEventListener('input', updateCalculation);
+    sendAmountInput.addEventListener('keyup', updateCalculation);
+
+    // Optional: Add sample calculation after page load
+    setTimeout(() => {
+        if (sendAmountInput.value === '') {
+            sendAmountInput.value = 5000;
+            updateCalculation();
+        }
+    }, 1500);
+});
+
+// Alternative initialization in case DOMContentLoaded has already fired
+if (document.readyState === 'loading') {
+    // DOM is still loading, wait for it
+    document.addEventListener('DOMContentLoaded', initializeCalculator);
+} else {
+    // DOM is already loaded
+    initializeCalculator();
+}
+
+function initializeCalculator() {
+    // This is a backup initialization function
+    const sendAmountInput = document.getElementById('sendAmount');
+    if (sendAmountInput && !sendAmountInput.hasAttribute('data-initialized')) {
+        sendAmountInput.setAttribute('data-initialized', 'true');
+        console.log('Calculator backup initialization triggered');
+    }
+}
