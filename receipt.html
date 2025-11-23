@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt - BikolpoSeba</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Bengali:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+            background: #f8fafc;
+            padding: 20px;
+        }
+
+        .bengali {
+            font-family: 'Noto Sans Bengali', sans-serif;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .error {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #fee;
+            border: 2px solid #c00;
+            border-radius: 12px;
+            text-align: center;
+            color: #c00;
+        }
+
+        .receipt-container {
+            max-width: 740px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border: 2px solid #28a745;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .receipt-header {
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .receipt-header img {
+            background: white;
+            padding: 8px;
+            border-radius: 8px;
+            max-width: 150px;
+            max-height: 60px;
+            margin-bottom: 10px;
+        }
+
+        .receipt-header h2 {
+            margin: 10px 0 5px;
+            font-size: 24px;
+        }
+
+        .receipt-header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .receipt-body {
+            padding: 30px;
+        }
+
+        .receipt-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed #e0e0e0;
+        }
+
+        .receipt-section:last-child {
+            border-bottom: none;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .trx-id {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .status-badge {
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .status-completed { background: #d4edda; color: #155724; }
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-rejected { background: #f8d7da; color: #721c24; }
+
+        .row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .col {
+            flex: 1;
+        }
+
+        .label {
+            color: #666;
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .value {
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .section-title {
+            color: #28a745;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .amount-section {
+            background: #f1f8e9;
+            padding: 15px;
+            text-align: center;
+            border: 2px solid #28a745;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .amount-total {
+            font-size: 30px;
+            font-weight: bold;
+            color: #28a745;
+            margin: 5px 0;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .footer-note p {
+            color: #666;
+            font-size: 13px;
+            margin: 10px 0;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .action-buttons { display: none !important; }
+            .receipt-container { box-shadow: none; border: 2px solid #28a745; }
+        }
+
+        @media (max-width: 768px) {
+            .receipt-body { padding: 20px; }
+            .row { flex-direction: column; gap: 15px; }
+            .action-buttons { flex-direction: column; }
+            .btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <div id="loadingMessage" class="loading bengali">
+        <i class="fas fa-spinner fa-spin"></i> রসিদ লোড হচ্ছে...
+    </div>
+
+    <div id="errorMessage" class="error" style="display: none;">
+        <i class="fas fa-exclamation-triangle"></i>
+        <h3 class="bengali">ত্রুটি</h3>
+        <p id="errorText"></p>
+    </div>
+
+    <div id="receiptContent" style="display: none;">
+        <div class="receipt-container" id="printableArea">
+            <div class="receipt-header">
+                <div>
+                    <img src="https://www.bikolposeba.com/bikolposheba-logo.png" alt="BikolpoSheba Logo">
+                </div>
+                <h2 class="bengali">মানি ট্রান্সফার রসিদ</h2>
+                <p class="bengali">বিকল্পসেবা - মানি ট্রান্সফার সেবা</p>
+                <p class="bengali">দ্রুত, নিরাপদ ও সাশ্রয়ী</p>
+            </div>
+
+            <div class="receipt-body">
+                <!-- Transaction ID & Status -->
+                <div class="section-header">
+                    <div>
+                        <div class="label bengali">লেনদেন আইডি</div>
+                        <div class="trx-id" id="trxId"></div>
+                    </div>
+                    <div>
+                        <span class="status-badge" id="status"></span>
+                    </div>
+                </div>
+
+                <!-- Date & Time -->
+                <div class="receipt-section">
+                    <div class="row">
+                        <div class="col">
+                            <div class="label bengali">তারিখ</div>
+                            <div class="value" id="date"></div>
+                        </div>
+                        <div class="col">
+                            <div class="label bengali">সময়</div>
+                            <div class="value" id="time"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sender Information -->
+                <div class="receipt-section">
+                    <h5 class="section-title bengali">
+                        <i class="fas fa-user"></i> প্রেরকের তথ্য
+                    </h5>
+                    <div class="row">
+                        <div class="col">
+                            <div class="label bengali">প্রেরকের নাম</div>
+                            <div class="value" id="senderName"></div>
+                        </div>
+                        <div class="col">
+                            <div class="label bengali">প্রেরকের ফোন</div>
+                            <div class="value" id="senderPhone"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Receiver Information -->
+                <div class="receipt-section">
+                    <h5 class="section-title bengali">
+                        <i class="fas fa-user-check"></i> প্রাপকের তথ্য
+                    </h5>
+                    <div id="receiverInfo"></div>
+                </div>
+
+                <!-- Service & Agent -->
+                <div class="receipt-section">
+                    <div class="row">
+                        <div class="col">
+                            <div class="label bengali">ট্রান্সফার সেবা</div>
+                            <div class="value" id="serviceName"></div>
+                        </div>
+                        <div class="col">
+                            <div class="label bengali">এজেন্ট</div>
+                            <div class="value" id="agentName"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Amount Details -->
+                <div class="receipt-section">
+                    <h5 class="section-title bengali">
+                        <i class="fas fa-dollar-sign"></i> পরিমাণের বিবরণ
+                    </h5>
+                    <div class="row">
+                        <div class="col">
+                            <div class="label bengali">ট্রান্সফার পরিমাণ</div>
+                            <div class="value" id="transferAmount"></div>
+                        </div>
+                        <div class="col">
+                            <div class="label bengali">সেবা চার্জ</div>
+                            <div class="value" id="serviceCharge"></div>
+                        </div>
+                    </div>
+
+                    <div class="amount-section">
+                        <div class="label bengali">মোট পরিমাণ</div>
+                        <div class="amount-total" id="totalAmount"></div>
+                        <small class="bengali">(সেবা চার্জ সহ)</small>
+                    </div>
+                </div>
+
+                <!-- Notes -->
+                <div id="notesSection" class="receipt-section" style="display: none;">
+                    <div class="label bengali">নোট</div>
+                    <div class="value" id="notes"></div>
+                </div>
+
+                <!-- Footer -->
+                <div class="footer-note">
+                    <p class="bengali"><strong>আমাদের সেবা ব্যবহার করার জন্য ধন্যবাদ!</strong></p>
+                    <p class="bengali">যেকোনো প্রশ্নের জন্য আপনার নিকটস্থ এজেন্টের সাথে যোগাযোগ করুন।</p>
+                    <p class="bengali" style="font-size: 11px; opacity: 0.7;">
+                        এটি একটি কম্পিউটার-জেনারেটেড রসিদ এবং স্বাক্ষরের প্রয়োজন নেই।
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button onclick="downloadPDF()" class="btn btn-primary bengali">
+                <i class="fas fa-download"></i> পিডিএফ ডাউনলোড
+            </button>
+            <a href="index.html" class="btn btn-secondary bengali">
+                <i class="fas fa-home"></i> হোম পেজে ফিরুন
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Get transaction ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const transactionId = urlParams.get('id') || urlParams.get('trx_id');
+
+        // Your Laravel API endpoint
+        const API_BASE_URL = 'https://admin.bikolposeba.com/api'; // Change this to your Laravel API URL
+
+        // Load receipt data
+        async function loadReceipt() {
+            if (!transactionId) {
+                showError('লেনদেন আইডি প্রদান করা হয়নি।');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/receipts/${transactionId}`);
+                
+                if (!response.ok) {
+                    throw new Error('রসিদ পাওয়া যায়নি');
+                }
+
+                const data = await response.json();
+                displayReceipt(data);
+            } catch (error) {
+                console.error('Error:', error);
+                showError('রসিদ লোড করতে সমস্যা হয়েছে। অনুগ্রহ করে পরে আবার চেষ্টা করুন।');
+            }
+        }
+
+        function displayReceipt(data) {
+            // Hide loading, show receipt
+            document.getElementById('loadingMessage').style.display = 'none';
+            document.getElementById('receiptContent').style.display = 'block';
+
+            // Fill in the data
+            document.getElementById('trxId').textContent = data.trx_id;
+            document.getElementById('status').textContent = data.status.toUpperCase();
+            document.getElementById('status').className = `status-badge status-${data.status}`;
+            
+            document.getElementById('date').textContent = formatDate(data.created_at);
+            document.getElementById('time').textContent = formatTime(data.created_at);
+            
+            document.getElementById('senderName').textContent = data.sender_name;
+            document.getElementById('senderPhone').textContent = data.sender_phone;
+            
+            // Receiver info
+            let receiverHtml = `
+                <div class="row">
+                    <div class="col">
+                        <div class="label bengali">প্রাপকের নাম</div>
+                        <div class="value">${data.receiver_name}</div>
+                    </div>
+                </div>
+            `;
+
+            if (data.service_type !== 'bank') {
+                receiverHtml += `
+                    <div class="row">
+                        <div class="col">
+                            <div class="label bengali">মোবাইল নম্বর</div>
+                            <div class="value">${data.receiver_mfs_number || 'N/A'}</div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                receiverHtml += `
+                    <div class="row">
+                        <div class="col">
+                            <div class="label bengali">ব্যাংকের নাম</div>
+                            <div class="value">${data.receiver_bank || 'N/A'}</div>
+                        </div>
+                        <div class="col">
+                            <div class="label bengali">ব্রাঞ্চের নাম</div>
+                            <div class="value">${data.bank_branch || 'N/A'}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="label bengali">অ্যাকাউন্ট নম্বর</div>
+                            <div class="value">${data.receiver_account_number || 'N/A'}</div>
+                        </div>
+                        <div class="col">
+                            <div class="label bengali">অ্যাকাউন্ট হোল্ডার</div>
+                            <div class="value">${data.receiver_account_name || 'N/A'}</div>
+                        </div>
+                    </div>
+                `;
+            }
+            document.getElementById('receiverInfo').innerHTML = receiverHtml;
+
+            document.getElementById('serviceName').textContent = data.service_name || 'N/A';
+            document.getElementById('agentName').textContent = data.agent_name || 'N/A';
+            
+            document.getElementById('transferAmount').textContent = '৳ ' + formatNumber(data.amount);
+            document.getElementById('serviceCharge').textContent = '৳ ' + formatNumber(data.service_charge);
+            document.getElementById('totalAmount').textContent = '৳ ' + formatNumber(data.amount + data.service_charge);
+
+            if (data.notes) {
+                document.getElementById('notesSection').style.display = 'block';
+                document.getElementById('notes').textContent = data.notes;
+            }
+        }
+
+        function showError(message) {
+            document.getElementById('loadingMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'block';
+            document.getElementById('errorText').textContent = message;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('bn-BD', { day: 'numeric', month: 'long', year: 'numeric' });
+        }
+
+        function formatTime(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+        }
+
+        function formatNumber(num) {
+            return parseFloat(num).toFixed(2);
+        }
+
+        function printReceipt() {
+            window.print();
+        }
+
+        function downloadPDF() {
+            const btn = event.target.closest('.btn');
+            const originalHTML = btn.innerHTML;
+            
+            // Show loader
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ডাউনলোড হচ্ছে...';
+            btn.disabled = true;
+            
+            // Use Laravel backend PDF instead of html2pdf.js
+            const downloadUrl = `${API_BASE_URL}/receipts/${transactionId}/download`;
+            
+            // Create a temporary link and click it
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = `receipt-${transactionId}.pdf`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Reset button after a short delay
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+            }, 2000);
+        }
+
+        // Load receipt on page load
+        loadReceipt();
+    </script>
+</body>
+</html>
