@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Receipt - BikolpoSeba</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Bengali:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -14,13 +14,9 @@
         }
 
         body {
-            font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+            font-family: 'Inter', sans-serif;
             background: #f8fafc;
             padding: 20px;
-        }
-
-        .bengali {
-            font-family: 'Noto Sans Bengali', sans-serif;
         }
 
         .loading {
@@ -231,13 +227,13 @@
     </style>
 </head>
 <body>
-    <div id="loadingMessage" class="loading bengali">
-        <i class="fas fa-spinner fa-spin"></i> রসিদ লোড হচ্ছে...
+    <div id="loadingMessage" class="loading">
+        <i class="fas fa-spinner fa-spin"></i> Loading receipt...
     </div>
 
     <div id="errorMessage" class="error" style="display: none;">
         <i class="fas fa-exclamation-triangle"></i>
-        <h3 class="bengali">ত্রুটি</h3>
+        <h3>Error</h3>
         <p id="errorText"></p>
     </div>
 
@@ -247,16 +243,16 @@
                 <div>
                     <img src="https://www.bikolposeba.com/bikolposheba-logo.png" alt="BikolpoSheba Logo">
                 </div>
-                <h2 class="bengali">মানি ট্রান্সফার রসিদ</h2>
-                <p class="bengali">বিকল্পসেবা - মানি ট্রান্সফার সেবা</p>
-                <p class="bengali">দ্রুত, নিরাপদ ও সাশ্রয়ী</p>
+                <h2>Money Transfer Receipt</h2>
+                <p>BikolpoSeba - Money Transfer Service</p>
+                <p>Fast, Safe & Affordable</p>
             </div>
 
             <div class="receipt-body">
                 <!-- Transaction ID & Status -->
                 <div class="section-header">
                     <div>
-                        <div class="label bengali">লেনদেন আইডি</div>
+                        <div class="label">Transaction ID</div>
                         <div class="trx-id" id="trxId"></div>
                     </div>
                     <div>
@@ -268,11 +264,11 @@
                 <div class="receipt-section">
                     <div class="row">
                         <div class="col">
-                            <div class="label bengali">তারিখ</div>
+                            <div class="label">Date</div>
                             <div class="value" id="date"></div>
                         </div>
                         <div class="col">
-                            <div class="label bengali">সময়</div>
+                            <div class="label">Time</div>
                             <div class="value" id="time"></div>
                         </div>
                     </div>
@@ -280,25 +276,42 @@
 
                 <!-- Sender Information -->
                 <div class="receipt-section">
-                    <h5 class="section-title bengali">
-                        <i class="fas fa-user"></i> প্রেরকের তথ্য
+                    <h5 class="section-title">
+                        <i class="fas fa-user"></i> Sender Information
                     </h5>
                     <div class="row">
                         <div class="col">
-                            <div class="label bengali">প্রেরকের নাম</div>
+                            <div class="label">Sender Name</div>
                             <div class="value" id="senderName"></div>
                         </div>
                         <div class="col">
-                            <div class="label bengali">প্রেরকের ফোন</div>
+                            <div class="label">Sender Phone</div>
                             <div class="value" id="senderPhone"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Information (From/To) -->
+                <div id="accountSection" class="receipt-section" style="display: none;">
+                    <h5 class="section-title">
+                        <i class="fas fa-exchange-alt"></i> Account Information
+                    </h5>
+                    <div class="row">
+                        <div class="col">
+                            <div class="label">From Account</div>
+                            <div class="value" id="fromAccount"></div>
+                        </div>
+                        <div class="col">
+                            <div class="label">To Account</div>
+                            <div class="value" id="toAccount"></div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Receiver Information -->
                 <div class="receipt-section">
-                    <h5 class="section-title bengali">
-                        <i class="fas fa-user-check"></i> প্রাপকের তথ্য
+                    <h5 class="section-title">
+                        <i class="fas fa-user-check"></i> Receiver Information
                     </h5>
                     <div id="receiverInfo"></div>
                 </div>
@@ -307,11 +320,11 @@
                 <div class="receipt-section">
                     <div class="row">
                         <div class="col">
-                            <div class="label bengali">ট্রান্সফার সেবা</div>
+                            <div class="label">Transfer Service</div>
                             <div class="value" id="serviceName"></div>
                         </div>
                         <div class="col">
-                            <div class="label bengali">এজেন্ট</div>
+                            <div class="label">Agent</div>
                             <div class="value" id="agentName"></div>
                         </div>
                     </div>
@@ -319,50 +332,50 @@
 
                 <!-- Amount Details -->
                 <div class="receipt-section">
-                    <h5 class="section-title bengali">
-                        <i class="fas fa-dollar-sign"></i> পরিমাণের বিবরণ
+                    <h5 class="section-title">
+                        <i class="fas fa-dollar-sign"></i> Amount Details
                     </h5>
                     <div class="row">
                         <div class="col">
-                            <div class="label bengali">ট্রান্সফার পরিমাণ</div>
+                            <div class="label">Transfer Amount</div>
                             <div class="value" id="transferAmount"></div>
                         </div>
                         <div class="col">
-                            <div class="label bengali">সেবা চার্জ</div>
+                            <div class="label">Service Charge</div>
                             <div class="value" id="serviceCharge"></div>
                         </div>
                     </div>
 
                     <div class="amount-section">
-                        <div class="label bengali">মোট পরিমাণ</div>
+                        <div class="label">Total Amount</div>
                         <div class="amount-total" id="totalAmount"></div>
-                        <small class="bengali">(সেবা চার্জ সহ)</small>
+                        <small>(Including Service Charge)</small>
                     </div>
                 </div>
 
                 <!-- Notes -->
                 <div id="notesSection" class="receipt-section" style="display: none;">
-                    <div class="label bengali">নোট</div>
+                    <div class="label">Notes</div>
                     <div class="value" id="notes"></div>
                 </div>
 
                 <!-- Footer -->
                 <div class="footer-note">
-                    <p class="bengali"><strong>আমাদের সেবা ব্যবহার করার জন্য ধন্যবাদ!</strong></p>
-                    <p class="bengali">যেকোনো প্রশ্নের জন্য আপনার নিকটস্থ এজেন্টের সাথে যোগাযোগ করুন।</p>
-                    <p class="bengali" style="font-size: 11px; opacity: 0.7;">
-                        এটি একটি কম্পিউটার-জেনারেটেড রসিদ এবং স্বাক্ষরের প্রয়োজন নেই।
+                    <p><strong>Thank you for using our service!</strong></p>
+                    <p>For any questions, please contact your nearest agent.</p>
+                    <p style="font-size: 11px; opacity: 0.7;">
+                        This is a computer-generated receipt and does not require a signature.
                     </p>
                 </div>
             </div>
         </div>
 
         <div class="action-buttons">
-            <button onclick="downloadPDF()" class="btn btn-primary bengali">
-                <i class="fas fa-download"></i> পিডিএফ ডাউনলোড
+            <button onclick="downloadPDF()" class="btn btn-primary">
+                <i class="fas fa-download"></i> Download PDF
             </button>
-            <a href="index.html" class="btn btn-secondary bengali">
-                <i class="fas fa-home"></i> হোম পেজে ফিরুন
+            <a href="index.html" class="btn btn-secondary">
+                <i class="fas fa-home"></i> Back to Home
             </a>
         </div>
     </div>
@@ -378,7 +391,7 @@
         // Load receipt data
         async function loadReceipt() {
             if (!transactionId) {
-                showError('লেনদেন আইডি প্রদান করা হয়নি।');
+                showError('Transaction ID not provided.');
                 return;
             }
 
@@ -386,14 +399,14 @@
                 const response = await fetch(`${API_BASE_URL}/receipts/${transactionId}`);
                 
                 if (!response.ok) {
-                    throw new Error('রসিদ পাওয়া যায়নি');
+                    throw new Error('Receipt not found');
                 }
 
                 const data = await response.json();
                 displayReceipt(data);
             } catch (error) {
                 console.error('Error:', error);
-                showError('রসিদ লোড করতে সমস্যা হয়েছে। অনুগ্রহ করে পরে আবার চেষ্টা করুন।');
+                showError('Failed to load receipt. Please try again later.');
             }
         }
 
@@ -413,11 +426,18 @@
             document.getElementById('senderName').textContent = data.sender_name;
             document.getElementById('senderPhone').textContent = data.sender_phone;
             
+            // Account Information (From/To)
+            if (data.from_account_number || data.receiver_account_number || data.receiver_mfs_number) {
+                document.getElementById('accountSection').style.display = 'block';
+                document.getElementById('fromAccount').textContent = data.from_account_number || 'N/A';
+                document.getElementById('toAccount').textContent = data.receiver_account_number || data.receiver_mfs_number || 'N/A';
+            }
+
             // Receiver info
             let receiverHtml = `
                 <div class="row">
                     <div class="col">
-                        <div class="label bengali">প্রাপকের নাম</div>
+                        <div class="label">Receiver Name</div>
                         <div class="value">${data.receiver_name}</div>
                     </div>
                 </div>
@@ -427,7 +447,7 @@
                 receiverHtml += `
                     <div class="row">
                         <div class="col">
-                            <div class="label bengali">মোবাইল নম্বর</div>
+                            <div class="label">Mobile Number</div>
                             <div class="value">${data.receiver_mfs_number || 'N/A'}</div>
                         </div>
                     </div>
@@ -436,21 +456,21 @@
                 receiverHtml += `
                     <div class="row">
                         <div class="col">
-                            <div class="label bengali">ব্যাংকের নাম</div>
+                            <div class="label">Bank Name</div>
                             <div class="value">${data.receiver_bank || 'N/A'}</div>
                         </div>
                         <div class="col">
-                            <div class="label bengali">ব্রাঞ্চের নাম</div>
+                            <div class="label">Branch Name</div>
                             <div class="value">${data.bank_branch || 'N/A'}</div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <div class="label bengali">অ্যাকাউন্ট নম্বর</div>
+                            <div class="label">Account Number</div>
                             <div class="value">${data.receiver_account_number || 'N/A'}</div>
                         </div>
                         <div class="col">
-                            <div class="label bengali">অ্যাকাউন্ট হোল্ডার</div>
+                            <div class="label">Account Holder</div>
                             <div class="value">${data.receiver_account_name || 'N/A'}</div>
                         </div>
                     </div>
@@ -479,7 +499,7 @@
 
         function formatDate(dateString) {
             const date = new Date(dateString);
-            return date.toLocaleDateString('bn-BD', { day: 'numeric', month: 'long', year: 'numeric' });
+            return date.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
         }
 
         function formatTime(dateString) {
@@ -500,7 +520,7 @@
             const originalHTML = btn.innerHTML;
             
             // Show loader
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ডাউনলোড হচ্ছে...';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
             btn.disabled = true;
             
             // Use Laravel backend PDF instead of html2pdf.js
