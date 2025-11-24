@@ -124,6 +124,7 @@
         .col {
             flex: 1;
             min-width: 0;
+            overflow: hidden;
         }
 
         .label {
@@ -291,6 +292,12 @@
             /* Keep rows horizontal on mobile - just reduce gap */
             .row {
                 gap: 10px;
+                flex-wrap: nowrap;
+            }
+            
+            .col {
+                flex: 1;
+                min-width: 0;
             }
 
             .section-title {
