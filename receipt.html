@@ -21,7 +21,7 @@
 
         .loading {
             text-align: center;
-            padding: 50px;
+            padding: 50px 20px;
             font-size: 18px;
             color: #666;
         }
@@ -29,7 +29,7 @@
         .error {
             max-width: 600px;
             margin: 50px auto;
-            padding: 30px;
+            padding: 30px 20px;
             background: #fee;
             border: 2px solid #c00;
             border-radius: 12px;
@@ -92,12 +92,14 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            gap: 15px;
         }
 
         .trx-id {
             font-size: 20px;
             font-weight: bold;
             color: #333;
+            word-break: break-all;
         }
 
         .status-badge {
@@ -106,6 +108,7 @@
             font-weight: 600;
             font-size: 14px;
             text-transform: uppercase;
+            white-space: nowrap;
         }
 
         .status-completed { background: #d4edda; color: #155724; }
@@ -120,6 +123,7 @@
 
         .col {
             flex: 1;
+            min-width: 0;
         }
 
         .label {
@@ -134,6 +138,7 @@
             font-size: 16px;
             color: #333;
             font-weight: 500;
+            word-break: break-word;
         }
 
         .section-title {
@@ -141,6 +146,9 @@
             font-size: 18px;
             font-weight: 600;
             margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .amount-section {
@@ -190,6 +198,7 @@
             text-decoration: none;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
         }
 
@@ -218,11 +227,160 @@
             .receipt-container { box-shadow: none; border: 2px solid #28a745; }
         }
 
+        /* Mobile Responsive Styles */
         @media (max-width: 768px) {
-            .receipt-body { padding: 20px; }
-            .row { flex-direction: column; gap: 15px; }
-            .action-buttons { flex-direction: column; }
-            .btn { width: 100%; justify-content: center; }
+            body {
+                padding: 10px;
+            }
+
+            .receipt-container {
+                border-radius: 8px 8px 0 0;
+            }
+
+            .receipt-header {
+                padding: 15px;
+                border-radius: 6px 6px 0 0;
+            }
+
+            .receipt-header h2 {
+                font-size: 20px;
+            }
+
+            .receipt-header p {
+                font-size: 13px;
+            }
+
+            .receipt-header img {
+                max-width: 120px;
+                max-height: 50px;
+            }
+
+            .receipt-body {
+                padding: 20px 15px;
+            }
+
+            .receipt-section {
+                margin-bottom: 20px;
+                padding-bottom: 15px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .section-header > div {
+                width: 100%;
+            }
+
+            .trx-id {
+                font-size: 16px;
+            }
+
+            .status-badge {
+                padding: 6px 16px;
+                font-size: 12px;
+                display: inline-block;
+            }
+
+            .row {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .section-title {
+                font-size: 16px;
+            }
+
+            .label {
+                font-size: 11px;
+            }
+
+            .value {
+                font-size: 14px;
+            }
+
+            .amount-section {
+                padding: 12px;
+            }
+
+            .amount-total {
+                font-size: 24px;
+            }
+
+            .footer-note {
+                margin-top: 20px;
+                padding-top: 15px;
+            }
+
+            .footer-note p {
+                font-size: 12px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                margin: 20px 0;
+                padding: 0 10px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 14px 20px;
+                font-size: 15px;
+            }
+
+            .error {
+                margin: 30px 10px;
+                padding: 20px 15px;
+            }
+
+            .loading {
+                padding: 30px 15px;
+                font-size: 16px;
+            }
+        }
+
+        /* Extra Small Mobile */
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+
+            .receipt-header img {
+                max-width: 100px;
+                max-height: 40px;
+            }
+
+            .receipt-header h2 {
+                font-size: 18px;
+            }
+
+            .receipt-body {
+                padding: 15px 12px;
+            }
+
+            .trx-id {
+                font-size: 14px;
+            }
+
+            .section-title {
+                font-size: 15px;
+            }
+
+            .value {
+                font-size: 13px;
+            }
+
+            .amount-total {
+                font-size: 22px;
+            }
+
+            .btn {
+                padding: 12px 16px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -386,7 +544,7 @@
         const transactionId = urlParams.get('id') || urlParams.get('trx_id');
 
         // Your Laravel API endpoint
-        const API_BASE_URL = 'https://admin.bikolposeba.com/api'; // Change this to your Laravel API URL
+        const API_BASE_URL = 'https://admin.bikolposeba.com/api';
 
         // Load receipt data
         async function loadReceipt() {
@@ -411,11 +569,9 @@
         }
 
         function displayReceipt(data) {
-            // Hide loading, show receipt
             document.getElementById('loadingMessage').style.display = 'none';
             document.getElementById('receiptContent').style.display = 'block';
 
-            // Fill in the data
             document.getElementById('trxId').textContent = data.trx_id;
             document.getElementById('status').textContent = data.status.toUpperCase();
             document.getElementById('status').className = `status-badge status-${data.status}`;
@@ -426,14 +582,12 @@
             document.getElementById('senderName').textContent = data.sender_name;
             document.getElementById('senderPhone').textContent = data.sender_phone;
             
-            // Account Information (From/To)
             if (data.from_account_number || data.receiver_account_number || data.receiver_mfs_number) {
                 document.getElementById('accountSection').style.display = 'block';
                 document.getElementById('fromAccount').textContent = data.from_account_number || 'N/A';
                 document.getElementById('toAccount').textContent = data.receiver_account_number || data.receiver_mfs_number || 'N/A';
             }
 
-            // Receiver info
             let receiverHtml = `
                 <div class="row">
                     <div class="col">
@@ -519,14 +673,11 @@
             const btn = event.target.closest('.btn');
             const originalHTML = btn.innerHTML;
             
-            // Show loader
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
             btn.disabled = true;
             
-            // Use Laravel backend PDF instead of html2pdf.js
             const downloadUrl = `${API_BASE_URL}/receipts/${transactionId}/download`;
             
-            // Create a temporary link and click it
             const link = document.createElement('a');
             link.href = downloadUrl;
             link.download = `receipt-${transactionId}.pdf`;
@@ -534,14 +685,12 @@
             link.click();
             document.body.removeChild(link);
             
-            // Reset button after a short delay
             setTimeout(() => {
                 btn.innerHTML = originalHTML;
                 btn.disabled = false;
             }, 2000);
         }
 
-        // Load receipt on page load
         loadReceipt();
     </script>
 </body>
