@@ -411,31 +411,3 @@ function initializeCalculator() {
         console.log('Calculator backup initialization triggered');
     }
 }
-
-/**
- * Head Office Image Lightbox Modal Handlers
- */
-function openHqModal() {
-    const modal = document.getElementById('hqModal');
-    if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-function closeHqModal(e) {
-    if (e && typeof e.stopPropagation === 'function') {
-        e.stopPropagation();
-    }
-    const modal = document.getElementById('hqModal');
-    if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-}
-
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        closeHqModal();
-    }
-});
